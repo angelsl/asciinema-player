@@ -4,21 +4,20 @@
   :license {:name "Apache 2.0"
             :url "http://www.apache.org/licenses/LICENSE-2.0"}
 
-  :dependencies [[org.clojure/clojure "1.9.0"]
-                 [org.clojure/clojurescript "1.10.520"]
-                 [org.clojure/core.async "0.4.474"]
-                 [doo "0.1.10"]
-                 [reagent "0.7.0"]
-                 [devcards "0.2.2" :exclusions [cljsjs/react cljsjs/create-react-class cljsjs/react-dom-server cljsjs/react-dom]]
-                 [org.clojure/test.check "0.9.0"]
-                 [org.clojure/core.match "0.3.0-alpha5"]
-                 [prismatic/schema "1.1.6"]]
+  :dependencies [[org.clojure/clojure "1.10.1"]
+                 [org.clojure/clojurescript "1.10.597"]
+                 [org.clojure/core.async "0.7.559"]
+                 [doo "0.1.11"]
+                 [reagent "0.9.1"]
+                 [org.clojure/test.check "0.10.0"]
+                 [org.clojure/core.match "0.3.0"]
+                 [prismatic/schema "1.1.12"]]
 
   :plugins [[lein-cljsbuild "1.1.7"]
-            [lein-figwheel "0.5.18"]
+            [lein-figwheel "0.5.19"]
             [lein-less "1.7.5"]
-            [lein-doo "0.1.10"]
-            [lein-kibit "0.1.3"]]
+            [lein-doo "0.1.11"]
+            [lein-kibit "0.1.8"]]
 
   :min-lein-version "2.5.3"
 
@@ -26,15 +25,18 @@
 
   :source-paths ["src" "vt/src"]
 
-  :profiles {:dev {:dependencies [[com.cemerick/piggieback "0.2.1"]
-                                  [org.clojure/tools.nrepl "0.2.10"]
-                                  [environ "1.0.1"]
-                                  [figwheel-sidecar "0.5.18"]]
-                   :plugins [[refactor-nrepl "1.1.0"]]
+  :profiles {:dev {:dependencies [[com.cemerick/piggieback "0.2.2"]
+                                  [org.clojure/tools.nrepl "0.2.13"]
+                                  [environ "1.1.0"]
+                                  [figwheel-sidecar "0.5.19"]]
+                   :plugins [[refactor-nrepl "2.4.0"]]
                    :source-paths ["dev/clj" "dev/cljs"]}
+             :devcards {:dependences [[devcards "0.2.6" :exclusions [cljsjs/react cljsjs/create-react-class cljsjs/react-dom-server cljsjs/react-dom]]]}
              :repl {:plugins [[cider/cider-nrepl "0.10.0"]]}}
 
   :repl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
+
+  :doo {:paths {:karma "./node_modules/karma/bin/karma"}}
 
   :cljsbuild {:builds {:dev {:source-paths ["src" "dev/cljs"]
                              :figwheel {:on-jsload "asciinema.player.dev/reload"}
@@ -73,15 +75,16 @@
                                  :compiler {:output-to "resources/public/js/asciinema-player.js"
                                             :output-dir "resources/public/js/release"
                                             :closure-defines {goog.DEBUG false}
-                                            :preamble ["license.js" "public/CustomEvent.js" "public/CustomElements.min.js"]
+                                            :preamble ["license.js"]
+                                            :infer-externs true
                                             :foreign-libs [{:file "resources/public/element.js"
                                                             :provides ["asciinema.player.element"]}
-                                                           {:file "vt/resources/codepoint-polyfill.js"
+                                                           {:file "resources/public/empty.js"
                                                             :provides ["asciinema.vt.codepoint-polyfill"]}]
                                             :optimizations :advanced
                                             :elide-asserts true
                                             :source-map "resources/public/js/asciinema-player.js.map"
-                                            :pretty-print  false}}}}
+                                            :pretty-print false}}}}
 
   :figwheel {:http-server-root "public"
              :server-port 3449

@@ -17,23 +17,23 @@
 (deftest test-part-props
   (are [attrs props] (= (v/part-props attrs) props)
     {} nil
-    {:fg 1} {:class-name "fg-1"}
+    {:fg 1} {:class "fg-1"}
     {:fg [1 2 3]} {:style {:color "rgb(1,2,3)"}}
-    {:bg 2} {:class-name "bg-2"}
+    {:bg 2} {:class "bg-2"}
     {:bg [4 5 6]} {:style {:background-color "rgb(4,5,6)"}}
-    {:fg 1 :bold true} {:class-name "fg-9 bright"}
-    {:fg 9 :bold true} {:class-name "fg-9 bright"}
-    {:fg 1 :bg 2 :underline true} {:class-name "fg-1 bg-2 underline"}
-    {:fg 1 :bg 2 :strikethrough true} {:class-name "fg-1 bg-2 strikethrough"}
-    {:fg [1 2 3] :bg [4 5 6] :bold true :underline true} {:class-name "bright underline" :style {:color "rgb(1,2,3)" :background-color "rgb(4,5,6)"}}
+    {:fg 1 :bold true} {:class "fg-9 bright"}
+    {:fg 9 :bold true} {:class "fg-9 bright"}
+    {:fg 1 :bg 2 :underline true} {:class "fg-1 bg-2 underline"}
+    {:fg 1 :bg 2 :strikethrough true} {:class "fg-1 bg-2 strikethrough"}
+    {:fg [1 2 3] :bg [4 5 6] :bold true :underline true} {:class "bright underline" :style {:color "rgb(1,2,3)" :background-color "rgb(4,5,6)"}}
     ;; inversed colors
-    {:inverse true} {:class-name "fg-bg bg-fg"}
-    {:inverse true :fg 1} {:class-name "fg-bg bg-1"}
-    {:inverse true :fg [1 2 3]} {:class-name "fg-bg" :style {:background-color "rgb(1,2,3)"}}
-    {:inverse true :bg 2} {:class-name "fg-2 bg-fg"}
-    {:inverse true :bg [4 5 6]} {:class-name "bg-fg" :style {:color "rgb(4,5,6)"}}
-    {:inverse true :fg 1 :bg 2} {:class-name "fg-2 bg-1"}
-    {:inverse true :fg 1 :bg 2 :bold true :blink true} {:class-name "fg-10 bg-9 bright"}
+    {:inverse true} {:class "fg-bg bg-fg"}
+    {:inverse true :fg 1} {:class "fg-bg bg-1"}
+    {:inverse true :fg [1 2 3]} {:class "fg-bg" :style {:background-color "rgb(1,2,3)"}}
+    {:inverse true :bg 2} {:class "fg-2 bg-fg"}
+    {:inverse true :bg [4 5 6]} {:class "bg-fg" :style {:color "rgb(4,5,6)"}}
+    {:inverse true :fg 1 :bg 2} {:class "fg-2 bg-1"}
+    {:inverse true :fg 1 :bg 2 :bold true :blink true} {:class "fg-10 bg-9 bright"}
     {:inverse true :fg [1 2 3] :bg [4 5 6]} {:style {:color "rgb(4,5,6)" :background-color "rgb(1,2,3)"}}))
 
 (deftest elapsed-time-test
